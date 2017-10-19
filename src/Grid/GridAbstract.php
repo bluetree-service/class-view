@@ -1,17 +1,11 @@
 <?php
-/**
- * allow rendering grid
- *
- * @package     Core
- * @subpackage  Render
- * @author      chajr <chajr@bluetree.pl>
- * @todo cache usage
- * @todo external template usage
- */
-namespace Core\Render\View\Grid;
+
+namespace View\Grid;
+
 use Core\Render\View;
 use Core\Blue\Model;
 use Loader;
+
 abstract class GridAbstract extends View\ViewAbstract
 {
     const DEFAULT_RENDERER = 'Core\Render\View\Grid\Row';
@@ -26,7 +20,7 @@ abstract class GridAbstract extends View\ViewAbstract
     /**
      * @var null|Row
      */
-    protected $_customRowRenderer = NULL;
+    protected $_customRowRenderer = null;
 
     /**
      * initialize grid renderer
@@ -35,7 +29,6 @@ abstract class GridAbstract extends View\ViewAbstract
      */
     public function __construct(array $options)
     {
-        Loader::tracer('start grid class', debug_backtrace(), '006800');
         Loader::callEvent('initialize_grid_object_before', $this);
         $this->initializeBlock($options);
 
@@ -52,7 +45,6 @@ abstract class GridAbstract extends View\ViewAbstract
      */
     public function render()
     {
-        Loader::tracer('start grid rendering', debug_backtrace(), '006800');
         Loader::callEvent('render_grid_object_before', $this);
 
         $data = $this->_options['data'];
@@ -77,8 +69,8 @@ abstract class GridAbstract extends View\ViewAbstract
                     'template'      => $this->_options['template'],
                     'module'        => $this->_options['module'],
                     'data'          => $this->_getDataFromFow($row),
-                    'cache'         => FALSE,
-                    'cache_data'    => FALSE,
+                    'cache'         => false,
+                    'cache_data'    => false,
                 ]
             );
 
@@ -133,5 +125,5 @@ abstract class GridAbstract extends View\ViewAbstract
      * 
      * @param array $row
      */
-    public function changeRowData(&$row){}
+    public function changeRowData($row){}
 }
